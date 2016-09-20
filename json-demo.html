@@ -87,40 +87,7 @@ jQuery(document).ready(function($) {
 		});	
 	}
 
-	function kuaidi100 () {
-		// 需要申请接口
-		$.ajax({
-			url: 'http://www.kuaidi100.com/query?type=yuantong&postid=560420688669',
-			dataType: 'jsonp',
-			type: 'GET',
-			// cache:false,
-			// async:false,
-			jsonp:'callback',
-			jsonpCallback:"success_jsonpCallback",
-			// crossDomain: true,
-			// data: {type:'yuantong',postid:'560420688669' },
-			// data: {type:'shentong',postid:'3313961970395' },
-			success:function  (data) {
-				$('h1').text('成功');
-				// $('h2').text(data.message);				
-				// $.each(data.data, function(index, val) {
-				// 	$('body').append('<strong>'+val.time+'</strong>');
-				// 	$('body').append('<p>'+val.context+'</p>');
-				// 	$('body').append('<p>'+val.ftime+'</p>').append('<hr>');
-				// });
-			},
-			error:function  (xhr,status,error) {
-				$('h2').text('失败');
-				 console.log(xhr);
-			},
-			beforeSend:function  () {
-				// alert('before ');
-			},
-			complete:function  () {
-				// alert('down ');
-			}
-		});		
-	}
+
 
 </script>
 </html>
