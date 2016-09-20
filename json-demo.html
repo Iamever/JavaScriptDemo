@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='jquery-1.8.3.min.js'></script>
+</head>
+<style>
+	.tel{
+		width: 300px;
+		height: 300px;
+		margin: 100px auto;
+		background: #458FD2;
+		text-align: center;;
+		color: white;
+	}
+	strong{
+		color: white;
+		line-height: 50px;
+	}
+	p{
+		line-height: 30px;
+		text-align: center;
+	}
+	input{
+		border:none;
+		outline: none;		
+		height: 30px;
+		line-height: 30px;
+	}
+	input[type='button']{
+		width: 100px;
+		color: #458FD2;
+		background: white;
+		cursor: pointer;
+
+	}
+	input[type='button']:hover{
+		background: #dedede;
+	}
+</style>
+<body>
+	<div class="tel">
+		<strong>手机号码归属地查询</strong>
+		<p>
+			手机号：
+			<input type="text" class='telNum'>
+		</p>
+		<p>
+			<input type="button" value='查询'>
+		</p>
+		<hr>
+		<div class="result"></div>
+	</div>
+</body>
+<script>
+jQuery(document).ready(function($) {
+	$('input[type="button"]').click(function() {
+		var telNum = $('.telNum').val(); 
+		if(!(/^1[34578]\d{9}$/.test(telNum))){ 
+			alert("手机号码有误，请重填"); 
+			return false; 
+		}else{
+			searchTel(telNum);
+		}
+	});
+});
+
+
+	function searchTel (telNum) {
+		$.ajax({
+			url: 'http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel='+telNum+'',
+			type: 'GET',
+			dataType: 'jsonp',
+			jsonp: "callback",
+			jsonpCallback:"jsonpCallback",
+		})
+		.done(function(json) {
+			$('.result').html('');
+			$('.result').append('<p>手机号码：'+json.telString+'</p>');
+	        $('.result').append('<p>归属地：'+json.carrier+'</p>');
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+		});	
+	}
+
+	function kuaidi100 () {
+		// 需要申请接口
+		$.ajax({
+			url: 'http://www.kuaidi100.com/query?type=yuantong&postid=560420688669',
+			dataType: 'jsonp',
+			type: 'GET',
+			// cache:false,
+			// async:false,
+			jsonp:'callback',
+			jsonpCallback:"success_jsonpCallback",
+			// crossDomain: true,
+			// data: {type:'yuantong',postid:'560420688669' },
+			// data: {type:'shentong',postid:'3313961970395' },
+			success:function  (data) {
+				$('h1').text('成功');
+				// $('h2').text(data.message);				
+				// $.each(data.data, function(index, val) {
+				// 	$('body').append('<strong>'+val.time+'</strong>');
+				// 	$('body').append('<p>'+val.context+'</p>');
+				// 	$('body').append('<p>'+val.ftime+'</p>').append('<hr>');
+				// });
+			},
+			error:function  (xhr,status,error) {
+				$('h2').text('失败');
+				 console.log(xhr);
+			},
+			beforeSend:function  () {
+				// alert('before ');
+			},
+			complete:function  () {
+				// alert('down ');
+			}
+		});		
+	}
+
+</script>
+</html>
