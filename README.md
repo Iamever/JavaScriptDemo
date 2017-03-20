@@ -1,2 +1,2 @@
-# ajax
-ajax demo
+#原生js练习
+
