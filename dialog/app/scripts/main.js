@@ -25,6 +25,9 @@
 
 			// 改变遮罩透明度
 			opacity:null,
+
+			// 点击遮罩层是否关闭
+			maskClose:true,
 			
 		};
 
@@ -81,6 +84,19 @@
 				win.append(content.html('加载中..'));
 				mask.append(win);
 				body.append(mask);
+
+				// 点击遮罩层 关闭弹框
+				if(mask){
+					mask.click(function() {
+						_this_.close();
+					});
+
+					window.setTimeout(function () {
+						_this_.close();
+					},3000);
+				}
+
+
 			}else{
 
 				// 根据参数创建弹窗
@@ -118,7 +134,7 @@
 				}
 
 				// 延迟关闭时间
-				if(config.delay && config.delay　!= 0){
+				if(config.delay && config.delay!= 0){
 					window.setTimeout(function () {
 						_this_.close();
 					},config.delay);
@@ -128,7 +144,6 @@
 
 		},
 		creatButtons: function (footer,buttons) {
-			// console.log(buttons);
 			var _this_ = this;
 			$(buttons).each(function(i) {
 				var type = this.type ? this.type : '';
@@ -138,13 +153,13 @@
 				var button = $('<button class="'+type+'">'+text+'</button>');
 
 				if(callback){
-					button.tap(function () {
+					button.click(function () {
 						callback();
 
 						_this_.close();
 					})
 				}else{
-					button.tap(function () {
+					button.click(function () {
 						_this_.close();
 					})
 				}

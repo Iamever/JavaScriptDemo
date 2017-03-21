@@ -2,8 +2,7 @@
   "name": "dialog",
   "private": true,
   "dependencies": {
-    "zepto": "^1.2.0",
-    "zepto-touch": "zeptotouch#^1.1.4"
+    "zepto": "^1.2.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
