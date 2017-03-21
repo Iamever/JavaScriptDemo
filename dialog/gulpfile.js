@@ -165,7 +165,7 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras','plugin'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
@@ -176,3 +176,9 @@ gulp.task('default', () => {
   });
 });
 
+
+gulp.task('plugin', function () {
+    gulp.src('app/js/dialog.js')
+      .pipe($.uglify())
+      .pipe(gulp.dest('dist/js'));
+});
