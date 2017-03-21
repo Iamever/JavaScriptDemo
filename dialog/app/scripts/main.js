@@ -13,7 +13,7 @@
 			// 类型 
 			type:'waiting',
 
-			// 关闭时间
+			// 延迟关闭时间
 			delay:null,
 
 			// 对话框提示信息
@@ -24,7 +24,7 @@
 			height:'auto',
 
 			// 改变遮罩透明度
-			opacity:'0.4',
+			opacity:null,
 			
 		};
 
@@ -77,8 +77,8 @@
 
 			// 判断是否传递了参数
 			if(this.isConfig){
-
-				win.append(content.html('请等待..'));
+				// 没有参数
+				win.append(content.html('加载中..'));
 				mask.append(win);
 				body.append(mask);
 			}else{
@@ -86,13 +86,49 @@
 				// 根据参数创建弹窗
 				header.addClass(config.type);
 				win.append(header);
+
+				// 信息文本
 				if(config.message){
 					win.append(content.html(config.message));
-				}else{
+				};
 
+				// 按钮组
+				if(config.buttons){
+					win.append(footer);
 				}
+
+				// 插入到页面
+				mask.append(win);
+				body.append(mask);
+
+				// 设置宽
+				if(config.width != 'auto'){
+					win.width(config.width);
+				}
+
+				// 设置高
+				if(config.height != 'auto'){
+					win.height(config.height);
+				}
+
+				// 设置透明度
+				if(config.opacity){
+					mask.css('backgroundColor', 'rgba(0,0,0,'+config.opacity+')');
+				}
+
+				// 延迟关闭时间
+				if(config.delay && config.delay　!= 0){
+					window.setTimeout(function () {
+						_this_.close();
+					},config.delay);
+				}
+
 			}
 
+		},
+
+		close :function () {
+			this.mask.remove();
 		}
 	};
 	// 注册到window对象上，使外层可以访问到Dialog
