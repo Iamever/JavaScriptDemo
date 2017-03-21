@@ -29,6 +29,9 @@
     .dl-content{
       color: #ddd;
       padding:1em;
+      &.warning{
+        color: red;
+      }
     }
     .dl-footer{
       padding:1em;
@@ -43,6 +46,8 @@
       border-radius: 6px;
       padding:0.5em 1em;
       margin:0 0.2em;
+      background-color:#ddd;
+      color: #333;  
       &.ok{
         background-color: #398DEE;
         color: white;
@@ -57,4 +62,27 @@
       }
     }
   }
+}
+
+
+button{
+  -webkit-appearance: none;
+  border:none;
+  border-radius: 6px;
+  padding:0.5em 1em;
+  margin:0 0.2em;
+  background-color:#ddd;
+  color: #333;  
+}
+
+table{
+  border:1px solid #ddd;
+  width: 100%;
+  color: #333;
+  font-size: 0.8em;
+  th,td{
+    border-bottom:1px solid #ddd;
+    border-right:1px solid #ddd;
+  }
+
 }

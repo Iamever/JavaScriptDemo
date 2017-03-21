@@ -11,13 +11,13 @@
 			buttons:null,
 
 			// 类型 
-			type:'waiting',
+			type:null,
 
 			// 延迟关闭时间
 			delay:null,
 
 			// 对话框提示信息
-			message:null,
+			message:'信息提示',
 
 			// 对话框的宽高
 			width:'auto',
@@ -27,7 +27,7 @@
 			opacity:null,
 
 			// 点击遮罩层是否关闭
-			maskClose:true,
+			maskClose:false,
 			
 		};
 
@@ -51,9 +51,6 @@
 		// 创建弹窗
 		this.win = $('<div class="dl-window">');
 
-		// 创建弹框头部
-		this.winHeader = $('<div class="dl-header">');
-
 		// 创建内容
 		this.winContent = $('<div class="dl-content">');
 
@@ -73,7 +70,6 @@
 				config = this.config,
 				mask = this.mask,
 				win = this.win,
-				header = this.winHeader,
 				content = this.winContent,
 				footer = this.winFooter,
 				body = this.body;
@@ -81,27 +77,21 @@
 			// 判断是否传递了参数
 			if(this.isConfig){
 				// 没有参数
-				win.append(content.html('加载中..'));
+				win.append(content.html(config.message));
 				mask.append(win);
 				body.append(mask);
 
-				// 点击遮罩层 关闭弹框
 				if(mask){
 					mask.click(function() {
 						_this_.close();
 					});
-
-					window.setTimeout(function () {
-						_this_.close();
-					},3000);
 				}
-
 
 			}else{
 
-				// 根据参数创建弹窗
-				header.addClass(config.type);
-				win.append(header);
+				// 弹窗类型
+				content.addClass(config.type);
+				win.append(content);
 
 				// 信息文本
 				if(config.message){
@@ -113,10 +103,6 @@
 					this.creatButtons(footer,config.buttons);
 					win.append(footer);
 				}
-
-				// 插入到页面
-				mask.append(win);
-				body.append(mask);
 
 				// 设置宽
 				if(config.width != 'auto'){
@@ -140,6 +126,17 @@
 					},config.delay);
 				}
 
+				// 点击遮罩层 关闭弹框
+				if(config.maskClose){
+					mask.click(function() {
+						_this_.close();
+					});
+				}
+
+				// 插入到页面
+				mask.append(win);
+				body.append(mask);
+
 			}
 
 		},
@@ -154,9 +151,11 @@
 
 				if(callback){
 					button.click(function () {
-						callback();
-
-						_this_.close();
+						var isClose = callback();
+						if(isClose === false){
+						}else{
+							_this_.close();
+						}
 					})
 				}else{
 					button.click(function () {

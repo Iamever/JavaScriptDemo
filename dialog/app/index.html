@@ -24,21 +24,75 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     
-    <!-- <div class="dl-container">
-      <div class="dl-window">
-        <div class="dl-header"></div>
-        <div class="dl-content">
-          提示内容
-        </div>
-        <div class="dl-footer">
-          <button class="ok">确定</button>
-          <button class="no">取消</button>
-          <button class="warning">取消</button>
-        </div>
-      </div>
-    </div> -->
 
-    <button id='btn1'>没有参数</button>
+    <p><button id='btn1'>没有参数</button></p>
+    <p><button id='btn2'>弹出警告框，2秒后自动关闭</button></p>
+    <p><button id='btn3'>弹出有确定和取消按钮的信息框，点击按钮关闭</button></p>
+    <p><button id='btn4'>弹出一个有确认按钮的警告框，点击按钮不关闭,点击遮罩关闭</button></p>
+    <p><button id='btn5'>弹出一个多组合的按钮框，样式可定制</button></p>
+    <p><button id='btn6'>弹出一个确认和删除的框，点击确认弹出加载框且2秒自动关闭；点击删除框把之前的框关闭掉</button></p>
+
+
+    <table>
+      <thead>
+        <tr>
+          <th>val</th>
+          <th>default</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>message</td>
+          <td>'信息提示'</td>
+          <td>弹框内容信息</td>
+        </tr>
+        <tr>
+          <td>type</td>
+          <td>null</td>
+          <td>弹窗显示风格，可选'warning'</td>
+        </tr>
+        <tr>
+          <td>delay</td>
+          <td>null</td>
+          <td>弹窗延迟关闭时间</td>
+        </tr>
+        <tr>
+          <td>width</td>
+          <td>'auto'</td>
+          <td>自定义弹窗宽度</td>
+        </tr>
+        <tr>
+          <td>height</td>
+          <td>'auto'</td>
+          <td>自定义弹窗高度</td>
+        </tr>
+        <tr>
+          <td>opacity</td>
+          <td>'0.3'</td>
+          <td>遮罩层透明度</td>
+        </tr>
+        <tr>
+          <td>maskClose</td>
+          <td>false</td>
+          <td>点击遮罩是否关闭弹窗</td>
+        </tr>
+        <tr>
+          <td>buttons</td>
+          <td>null</td>
+          <td>自定义按钮,text:按钮文本;type:按钮风格(ok\no\warning);callback:自定义触发事件</td>
+        </tr>
+        <tr>
+          <td colspan='3'>回调函数</td>
+        </tr>
+        <tr>
+          <td>close</td>
+          <td colspan="2">
+            关闭某个弹框
+          </td>
+        </tr>
+      </tbody>
+    </table>
     
     
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
@@ -66,46 +120,97 @@
       var d1 = new Dialog()
     });
 
+    $('#btn2').click(function() {
+      var d2 = new Dialog({
+        type:"warning",
+        delay:2000,
+        message:'弹出警告框，2秒后自动关闭'
+      })
+    });
+
+    $('#btn3').click(function() {
+      var d3 = new Dialog({
+        message:'弹出有确定和取消按钮的信息框，点击按钮关闭',
+        buttons:[
+        {
+          text:'确认',
+          type:'ok'
+        },{
+          text:'取消',
+          type:'no'
+        }
+        ],
+      })
+    });
+
+    $('#btn4').click(function() {
+      var d4 = new Dialog({
+        message:'弹出一个有确认按钮的警告框，点击按钮不关闭',
+        type:'warning',
+        buttons:[
+        {
+          text:'确认',
+          type:'ok',
+          callback:function () {
+            alert(3);
+
+            return false;
+          }
+        }
+        ],
+      })
+    });
+
+
+    $('#btn5').click(function() {
+      var d5 = new Dialog({
+        message:'弹出一个多组合的按钮框，样式可定制',
+        buttons:[
+        {
+          text:'确认',
+          type:'ok',
+        },
+        {
+          text:'警告',
+          type:'warning',
+        },
+        {
+          text:'取消',
+          type:'no',
+        }
+        ],
+      })
+    });
+
+
+    $('#btn6').click(function() {
+      var d6 = new Dialog({
+        message:'弹出一个确认和删除的框，点击确认弹出加载框且2秒自动关闭；点击删除框把之前的框关闭掉',
+        buttons:[
+        {
+          text:'确认',
+          type:'ok',
+          callback:function () {
+            var dn = new Dialog({
+              delay:2000,
+              message:'你点击了确认按钮'
+            })
+          }
+        },
+        {
+          text:'删除',
+          type:'no',
+          callback:function () {
+            d6.close();
+          }
+        }
+        ],
+      })
+    });
 
 
 
-      // var d = new Dialog(
-    //   {
-    //   // 按钮组
-    //   buttons:[{
-    //     type:'ok',
-    //     text:'ok',
-    //     callback:function () {
-    //       alert('ok');
-
-    //       return false;
-    //     }
-    //   },{
-    //     type:'no',
-    //     text:'no',
-    //     callback:function () {
-    //      alert('no');
-    //     }
-    //   }],
-
-    //   // 类型 
-    //   type:'waiting',
-
-    //   // 关闭时间
-    //   // delay:3000,
-
-    //   // 对话框提示信息
-    //   message:'hi',
-
-    //   // 对话框的宽高
-    //   width:200,
-    //   // height:100,
-
-    //   // 改变遮罩透明度
-    //   opacity:0.5,
-      
-    // }
-    // );
+     
     </script>
     <!-- endbuild -->
   </body>
