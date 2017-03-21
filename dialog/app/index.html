@@ -54,6 +54,7 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/zepto/zepto.js"></script>
+    <script src="/bower_components/zepto-touch/zepto-touch.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     
@@ -63,32 +64,34 @@
       var d = new Dialog(
       {
       // 按钮组
-      // buttons:[{
-      //   type:'ok',
-      //   text:'ok',
-      //   callback:function () {
-          
-      //   }
-      // },{
-      //   type:'no',
-      //   text:'no',
-      //   callback:function () {
-          
-      //   }
-      // }],
+      buttons:[{
+        type:'ok',
+        text:'ok',
+        callback:function () {
+          alert('ok');
+
+          return false;
+        }
+      },{
+        type:'no',
+        text:'no',
+        callback:function () {
+         alert('no');
+        }
+      }],
 
       // 类型 
       type:'waiting',
 
       // 关闭时间
-      delay:3000,
+      // delay:3000,
 
       // 对话框提示信息
       message:'hi',
 
       // 对话框的宽高
       width:200,
-      height:100,
+      // height:100,
 
       // 改变遮罩透明度
       opacity:0.5,

@@ -94,6 +94,7 @@
 
 				// 按钮组
 				if(config.buttons){
+					this.creatButtons(footer,config.buttons);
 					win.append(footer);
 				}
 
@@ -126,8 +127,33 @@
 			}
 
 		},
+		creatButtons: function (footer,buttons) {
+			// console.log(buttons);
+			var _this_ = this;
+			$(buttons).each(function(i) {
+				var type = this.type ? this.type : '';
+				var text = this.text ? this.text : '按钮'+(++i);
+				var callback = this.callback ? this.callback : null;
 
-		close :function () {
+				var button = $('<button class="'+type+'">'+text+'</button>');
+
+				if(callback){
+					button.tap(function () {
+						callback();
+
+						_this_.close();
+					})
+				}else{
+					button.tap(function () {
+						_this_.close();
+					})
+				}
+
+				footer.append(button);
+
+			});
+		},
+		close: function () {
 			this.mask.remove();
 		}
 	};
