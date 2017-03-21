@@ -31,6 +31,7 @@
     <p><button id='btn4'>弹出一个有确认按钮的警告框，点击按钮不关闭,点击遮罩关闭</button></p>
     <p><button id='btn5'>弹出一个多组合的按钮框，样式可定制</button></p>
     <p><button id='btn6'>弹出一个确认和删除的框，点击确认弹出加载框且2秒自动关闭；点击删除框把之前的框关闭掉</button></p>
+    <p><button id='btn7'>弹出一个确认框，点击确认弹出加载框且2秒自动关闭,并带有回调函数</button></p>
 
 
     <table>
@@ -73,6 +74,11 @@
           <td>遮罩层透明度</td>
         </tr>
         <tr>
+          <td>effect</td>
+          <td>false</td>
+          <td>是否使用动画效果</td>
+        </tr>
+        <tr>
           <td>maskClose</td>
           <td>false</td>
           <td>点击遮罩是否关闭弹窗</td>
@@ -89,6 +95,12 @@
           <td>close</td>
           <td colspan="2">
             关闭某个弹框
+          </td>
+        </tr>
+        <tr>
+          <td>delayCallBack</td>
+          <td colspan="2">
+            延迟回调函数，延迟开启前提下
           </td>
         </tr>
       </tbody>

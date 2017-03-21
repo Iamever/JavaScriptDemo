@@ -13,6 +13,7 @@
     $('#btn3').click(function() {
       var d3 = new Dialog({
         message:'弹出有确定和取消按钮的信息框，点击按钮关闭',
+        effect:true,
         buttons:[
         {
           text:'确认',
@@ -29,6 +30,7 @@
       var d4 = new Dialog({
         message:'弹出一个有确认按钮的警告框，点击按钮不关闭',
         type:'warning',
+        maskClose:true,
         buttons:[
         {
           text:'确认',
@@ -77,6 +79,8 @@
               delay:2000,
               message:'你点击了确认按钮'
             })
+
+            return false;
           }
         },
         {
@@ -84,6 +88,29 @@
           type:'no',
           callback:function () {
             d6.close();
+          }
+        }
+        ],
+      })
+    });
+
+
+    $('#btn7').click(function() {
+      var d7 = new Dialog({
+        message:'弹出一个确认框，点击确认弹出加载框且2秒自动关闭,并带有回调函数',
+        buttons:[
+        {
+          text:'确认',
+          type:'ok',
+          callback:function () {
+            var dn = new Dialog({
+              delay:2000,
+              message:'你点击了确认按钮',
+              delayCallBack:function () {
+                alert('我是延迟回调函数');
+              }
+            })
+
           }
         }
         ],

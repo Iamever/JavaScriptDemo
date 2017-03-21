@@ -18,14 +18,8 @@
     border-radius: 10px;
     background-color:rgba(#000,0.8);
     text-align: center;
-    .dl-header{
-      width: 100%;
-      height: 50px;
-      line-height: 50px;
-      margin: 0 auto;
-      color: #ddd;
-      border-bottom:1px solid #eee;
-    }
+
+    -webkit-transition: all 0.4s cubic-bezier(0.62, 0.03, 0.63, 1.43);
     .dl-content{
       color: #ddd;
       padding:1em;

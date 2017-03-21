@@ -16,6 +16,9 @@
 			// 延迟关闭时间
 			delay:null,
 
+			// 延迟关闭之后的回调
+			delayCallBack: null,
+
 			// 对话框提示信息
 			message:'信息提示',
 
@@ -28,6 +31,9 @@
 
 			// 点击遮罩层是否关闭
 			maskClose:false,
+
+			// 是否启用动画
+			effect:true,
 			
 		};
 
@@ -62,7 +68,17 @@
 		
 	};
 
+	Dialog.zIndex = 9999;
+
 	Dialog.prototype= {
+		// 动画
+		animate:function () {
+			var _this_ = this;
+			this.win.css('-webkit-transform', 'scale(0,0');
+			window.setTimeout(function () {
+				_this_.win.css('-webkit-transform', 'scale(1,1)');
+			},100);
+		},
 
 		// 创建弹出框
 		creat:function () {
@@ -74,12 +90,21 @@
 				footer = this.winFooter,
 				body = this.body;
 
+				// 增加弹窗层级
+				Dialog.zIndex ++;
+				this.mask.css('zIndex', Dialog.zIndex);
+
+
 			// 判断是否传递了参数
 			if(this.isConfig){
 				// 没有参数
 				win.append(content.html(config.message));
 				mask.append(win);
 				body.append(mask);
+
+				if(config.effect){
+					this.animate();
+				}
 
 				if(mask){
 					mask.click(function() {
@@ -123,6 +148,9 @@
 				if(config.delay && config.delay!= 0){
 					window.setTimeout(function () {
 						_this_.close();
+
+						// 延迟之后的回调
+						config.delayCallBack && config.delayCallBack();
 					},config.delay);
 				}
 
@@ -131,6 +159,10 @@
 					mask.click(function() {
 						_this_.close();
 					});
+				}
+
+				if(config.effect){
+					this.animate();
 				}
 
 				// 插入到页面
@@ -150,15 +182,19 @@
 				var button = $('<button class="'+type+'">'+text+'</button>');
 
 				if(callback){
-					button.click(function () {
+					button.click(function (e) {
 						var isClose = callback();
+
+						// 阻止事件冒泡
+						e.stopPropagation();
 						if(isClose === false){
 						}else{
 							_this_.close();
 						}
 					})
 				}else{
-					button.click(function () {
+					button.click(function (e) {
+						e.stopPropagation();
 						_this_.close();
 					})
 				}
