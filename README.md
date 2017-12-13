@@ -1,7 +1,9 @@
 
-ajax-2016-9-20/
-ajax练习
+# 使用js编写的小插件
+
+  算作自己的练习。
 
 
-dialog/
-zepto插件--弹出框
+- dialog 弹窗组件
+- ajax跨域访问
+- slick
